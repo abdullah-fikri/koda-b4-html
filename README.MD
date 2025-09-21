@@ -5,18 +5,18 @@
 ### Versi Dekstop
 ![index.html](/result/(dekstop)index.html.png)
 ### Versi Tab
-![index.html](/result/(Tab)index.html.png)
+![index.html](/result/(tab)index.html.png)
 ### Versi Mobile
-![index.html](/result/(Mobile)index.html.png)
+![index.html](/result/(mobile)index.html.png)
 
 ## Dashboard Create Tugas
 
 ### Versi Dekstop
 ![create.html](/result/(dekstop)create-tugas.png)
 ### Versi Tab
-![create.html](/result/(Tab)create-tugas.png)
+![create.html](/result/(tab)create-tugas.png)
 ### Versi Mobile
-![create.html](/result/(Mobile)create-tugas.png)
+![create.html](/result/(mobile)create-tugas.png)
 
 ## Dashboard Sort-by
 ### Versi Dekstop
