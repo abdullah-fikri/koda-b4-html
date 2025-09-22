@@ -2,7 +2,7 @@
 
 body{
     font-family: "Poppins", sans-serif;
-    background-color: #ffffff;
+    background-color: #F0F0D7;
 }
 
 nav{
@@ -30,7 +30,7 @@ nav ul li a{
     max-width: 800px;
     min-height: 672px;
     margin: 30px auto;
-    background-color: #ffffff;
+    background-color: F0F0D7;
     box-shadow: 0px 16px 90px 0px #13073414;
     padding: 40px;
     position: relative;
@@ -45,7 +45,7 @@ nav ul li a{
 
 .task :first-child{
     font-weight: 500;
-    color: #FF5F26;
+    color: #727D73;
     letter-spacing: 1px;
     font-size: 16px;
 }
@@ -68,7 +68,7 @@ nav ul li a{
 
 .todo .btn-tambah-tugas button{
     display: flex;
-    background-color: #FF5F26;
+    background-color: #727D73;
     color: white;
     border-radius: 60px;
     padding: 12px 15px;
@@ -104,7 +104,7 @@ nav ul li a{
 
 .container-2 .btn{
     border-radius: 50px;
-    border: 1px solid #FF5F26;;
+    border: 1px solid  #727D73;
     padding: 10px 14px;
     display: flex;
     align-items: center;
@@ -115,12 +115,14 @@ nav ul li a{
 .container-2 .btn span{
     font-weight: 600;
     font-size: 14px;
-    color: #FF5F26;
+    color: #727D73;
 }
 
 .container-2 .btn img{
     width: 24px;
     height: 24px;
+    filter: brightness(100) saturate(100%) invert(99%) sepia(6%) saturate(1305%) hue-rotate(326deg) brightness(100%) contrast(93%);
+    
 }
 
 .task-checkbox {
@@ -155,8 +157,8 @@ margin-left: 16px;
 padding: 8px 12px;
 font-size: 12px;
 font-weight: 500;
-color: #ff5f26;
-background-color: #ffebd3;
+color:  #727D73;
+background-color: white;
 border-radius: 50px;
 max-width: 100%;
 display: inline-block;
@@ -187,8 +189,8 @@ display: none;
 }
 
  input[type="checkbox"]:checked + .checkbox {
-background-color: #ff5f26;
-border-color: #ff5f26;
+background-color: black;
+border-color: black;
 }
 
  input[type="checkbox"]:checked + .checkbox span {
@@ -232,8 +234,8 @@ mask: url(/assets/Vector.png) no-repeat center / contain;
     border-radius: 50px;
     margin-left: 16px;
     font-size: 12px;
-    color: #FF5F26;
-    background-color:  #ffebd3;;
+    color:  #727D73;
+    background-color:  white;
     padding: 8px 12px;
 }
 
@@ -281,8 +283,8 @@ mask: url(/assets/Vector.png) no-repeat center / contain;
 .task-checkbox-name-3 .badge-3{
     border-radius: 50px;
     padding: 8px 12px;
-    background-color: #FFEBD3;
-    color: #FF5F26;
+    background-color: white;
+    color: #727D73;
     font-size: 12px;
     margin-left: 16px;
 }
