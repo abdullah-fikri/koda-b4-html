@@ -41,7 +41,7 @@
     </nav>
     <main>
       <!-- container -->
-      <div class="max-w-[800px] min-h-[672px] my-4 mx-auto bg-white md:shadow-[0_16px_90px_0px_#13073414] p-[20px] md:p-[40px]">
+      <div class="max-w-[800px] min-h-[672px] my-4 mx-auto bg-white md:shadow-[0_16px_90px_0px_#13073414] p-[20px] md:p-[40px] flex flex-col">
         <!-- todo -->
         <div class="flex flex-col md:flex-row md:justify-between md:items-start">
           <div class="flex flex-col gap-2 md:gap-5">
@@ -71,77 +71,100 @@
             </button>
           </div>
         </div>
-        <div class="task-checkbox">
-          <input type="checkbox" name="check" id="check-1" />
-          <label for="check-1" class="checkbox">
-            <span></span>
-          </label>
-          <div class="task-checkbox-container-product">
-            <div class="task-checkbox-name">
-              <label for="check-1" class="task-checkbox-label"
-                >Product Design</label
-              >
-              <span class="badge">Hari ini</span>
-            </div>
-
-            <div class="note">Tugas untuk design team</div>
-          </div>
-          <img src="/assets/Arrow - Down 2.svg" alt="arrow" class="arrow" />
-        </div>
-        <div class="container-nama-tugas">
-          <div class="nama-tugas">
+        <!-- container-nama-tugas -->
+        <div class="w-[calc(100%+60px)] ml-[-20px] h-28 bg-[#F5F5F5] pt-2 pr-10 pb-0 pl-10 mt-2 md:w-[calc(100%+80px)] ml-[-40px]">
+          <!-- nama-tugas -->
+          <div class="flex items-center ">
               <input type="checkbox" name="check" id="check-tugas">
               <label for="check-tugas" class="checkbox">
                   <span></span>
               </label>
-              <div class="text-tugas">
-                  <div style="height: 28px; width: 1px; background-color: #262530; margin-left: 14px;"></div>
-                  <label for="check-tugas">Masukkan nama tugas</label>
+              <!-- text-tugas -->
+              <div class="flex items-center">
+                  <input for="check-tugas" placeholder="Masukkan nama tugas" class="pl-1 text-[#9E9E9E] font-medium text-lg w-[300px] border-none outline-none bg-transparent pl-3"></input>
               </div>
           </div>
-          <div class="deskripsi-tugas">
+          <!-- deskripsi-tugas -->
+          <div class="flex items-center pt-2">
               <img src="/assets/menu.png" alt="menu">
-              <span>Deskripsi Tugas (Optional)</span>
+              <input class="text-[#9E9E9E] font-normal text-sm pl-3 w-[400px] border-none outline-none bg-transparent" placeholder="Deskripsi Tugas (Optional)"></input>
           </div>
-          <div class="calendar">
+          <!-- calendar -->
+          <div class="flex items-center pt-2">
               <img src="/assets/Calendar.svg" alt="calendar">
-              <span>Tanggal & waktu</span>
+              <input class="text-[#9E9E9E] font-normal text-sm pl-3 border-none bg-transparent border-none outline-none" placeholder="Tanggal & waktu"></input>
           </div>
       </div>
-        <div class="task-checkbox-2">
+      <!-- task-checkbox -->
+      <div class="flex gap-[10px] mt-4">
+        <input type="checkbox" name="check" id="check-1" />
+        <label for="check-1" class="checkbox">
+          <span></span>
+        </label>
+        <div class="task-checkbox-container-product">
+          <!-- task-checkbox-name -->
+        <div class="flex-col md:flex-row">
+          <!-- task-checkbox-label -->
+          <label for="check-1" class="text-[#293028] font-medium text-lg cursor-pointer"
+            >Product Design</label
+          >
+          <!-- badge -->
+          <span class="inline-flex ml-4 px-3 py-2 text-xs font-medium text-[#FF5F26] bg-[#FFEBD3] rounded-[50px] ">Hari ini</span>
+        </div>
+
+        <!-- note -->
+        <div class="text-sm font-normal text-[#7A7F83] mt-2">Tugas untuk design team</div>
+      </div>
+      <!-- arrow -->
+      <img src="/assets/Arrow - Down 2.svg" alt="arrow" class="ml-auto w-6 h-6" />
+    </div>
+        <!-- task-checkbox-2 -->
+        <div class="flex mt-4 items-center gap-[10px]">
           <input type="checkbox" name="check" id="check-2" />
           <label for="check-2" class="checkbox">
             <span></span>
           </label>
           <div class="task-checkbox-container-product-2">
-            <div class="task-checkbox-name-2">
-              <label for="check-2" class="task-checkbox-label-2"
+            <!-- task-checkbox-name-2 -->
+            <div class="flex-col md:flex-row">
+              <!-- task-checkbox-label-2 -->
+              <label for="check-2" class="font-medium text-lg text-[#293038] cursor-pointer" 
                 >Development</label
               >
-              <span class="badge-2">15 Juni 2022</span>
+              <!-- badge-2 -->
+              <span class="inline-flex rounded-[50px] text-xs text-[#FF5F26] px-3 py-2 bg-[#FFEBD3] font-medium">15 Juni 2022</span>
             </div>
           </div>
-          <img src="/assets/Arrow - Down 2.svg" alt="arrow" class="arrow-2" />
+          <!-- arrow-2 -->
+          <img src="/assets/Arrow - Down 2.svg" alt="arrow" class="ml-auto w-6 h-6 " />
         </div>
-        <div class="task-checkbox-3">
+        <!-- task-checkbox-3 -->
+        <div class="flex items-center gap-[10px] mt-4 ">
           <input type="checkbox" name="check" id="check-3" />
           <label for="check-3" class="checkbox">
             <span></span>
           </label>
           <div class="task-checkbox-container-product-3">
-            <div class="task-checkbox-name-3">
-              <label for="check-3" class="task-checkbox-label-3"
+            <!-- task-checkbox-name-3 -->
+            <div class="flex-col md:flex-row">
+              <!-- task-checkbox-label-3 -->
+              <label for="check-3" class="text-lg font-medium text-[#293038] cursor-pointer"
                 >Task Launching Wazwez Website</label
               >
-              <span class="badge-3">20 Juni 2022</span>
+              <!-- badge-3 -->
+              <span class="inline-flex rounded-[50px] px-3 py-2 text-xs bg-[#FFEBD3] text-[#FF5F26] font-medium">20 Juni 2022</span>
             </div>
           </div>
-          <img src="/assets/Arrow - Down 2.svg" alt="arrow" class="arrow-3" />
+          <!-- arrow-3 -->
+          <img src="/assets/Arrow - Down 2.svg" alt="arrow" class="ml-auto w-6 h-6" />
         </div>
-        <div class="footer">
-          <div class="line">
+        <!-- footer -->
+        <div class="mt-auto">
+          <!-- line -->
+          <div class="w-full h-px bg-[#CCCED2]"></div>
+          <div class="flex items-center mt-4">
             <img src="/assets/Arrow - Right 2.png" alt="" /><span
-              >Terselesaikan (3 tugas)</span
+            >Terselesaikan (3 tugas)</span
             >
           </div>
         </div>
