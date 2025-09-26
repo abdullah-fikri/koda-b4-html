@@ -4,49 +4,70 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wazwez</title>
-    <link rel="stylesheet" href="/css/style.css" />
+    <!-- <link rel="stylesheet" href="/css/style.css" /> -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rancho&display=swap">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              poppins: ['Poppins', 'sans-serif'],
+              rancho: ['Rancho', 'cursive']
+            }
+          }
+        }
+      }
+    </script>
+
   </head>
-  <body>
-    <nav>
-      <img src="/assets/Logo.svg" alt="" />
-      <ul>
+  <body class="font-poppins bg-white">
+    <nav class="flex justify-between w-full max-w-7xl h-12 py-10 px-3 mx-auto items-center">
+      <img class="h-[40px] md:h-[50px]" src="/assets/Logo.svg" alt="logo" />
+      <ul class="flex items-center gap-2.5">
         <li class="notif">
-          <a href=""><img src="/assets/Notification.png" alt="" /></a>
+          <a class="flex items-center" href=""><img src="/assets/Notification.png" alt="notification" /></a>
         </li>
         <li class="profile"> 
-          <a href=""><img src="/assets/Group 30.png" alt="" /></a>
+          <a class="flex items-center" href=""><img src="/assets/Group 30.png" alt="profile" /></a>
         </li>
-        <li class="krozeo">
-          <a href=""><img src="/assets/Krozeo Jupiter.png" alt="" /></a>
+        <li class="hidden md:block">
+          <a class="flex items-center" href=""><img src="/assets/Krozeo Jupiter.png" alt="users" /></a>
         </li>
         <li>
-          <a href=""><img src="/assets/down.png" alt="" /></a>
+          <a class="flex items-center" href=""><img src="/assets/down.png" alt="menu" /></a>
         </li>
       </ul>
     </nav>
     <main>
-      <div class="container">
-        <div class="todo">
-          <div class="task">
-            <span>MY TASKS</span>
-            <span>To Do List</span>
-            <span>Buat Tugas List Tugas Harian Saya</span>
+      <!-- container -->
+      <div class="max-w-[800px] min-h-[672px] my-4 mx-auto bg-white md:shadow-[0_16px_90px_0px_#13073414] p-[20px] md:p-[40px]">
+        <!-- todo -->
+        <div class="flex flex-col md:flex-row md:justify-between md:items-start">
+          <div class="flex flex-col gap-2 md:gap-5">
+            <span class="font-medium text-[#FF5F26] tracking-[1px] text-base ">MY TASKS</span>
+            <span class="font-medium text-black text-2xl">To Do List</span>
+            <span class="font-normal text-base text-[#7A7F83]">Buat Tugas List Tugas Harian Saya</span>
           </div>
-          <div class="btn-tambah-tugas">
-            <button>
-              <img src="/assets/Plus.svg" alt="" />
+          <!-- btn-tambah-tugas -->
+          <div class="mt-[20px] md:mt-[70px]">
+            <button class="flex bg-[#FF5F26] text-white rounded-[60px] items-center border-none gap-[8px] mx-w-[100%] p-3">
+              <img src="/assets/Plus.svg" alt="plus" />
               <span>Tambah Tugas</span>
             </button>
           </div>
         </div>
-        <div class="container-2">
-          <div>
+        <!-- container-2 -->
+        <div class="flex mt-7 justify-between items-center md:mt-10">
+          <!-- first child -->
+          <div class="text-base font-medium text-[#7A7F83]">
             <span>Sort By</span>
           </div>
           <div>
-            <button class="btn">
-              <span>By Tanggal</span>
-              <img src="/assets/arrow-down-love.png" alt="" />
+            <!-- btn -->
+            <button class="rounded-[50px] border border-[#FF5F26] py-2 px-4 flex w-full items-center ">
+              <span class="font-semibold text-sm text-[#FF5F26]">By Tanggal</span>
+              <img class="w-[24px] " src="/assets/arrow-down-love.png" alt="" />
             </button>
           </div>
         </div>
@@ -67,6 +88,26 @@
           </div>
           <img src="/assets/Arrow - Down 2.svg" alt="arrow" class="arrow" />
         </div>
+        <div class="container-nama-tugas">
+          <div class="nama-tugas">
+              <input type="checkbox" name="check" id="check-tugas">
+              <label for="check-tugas" class="checkbox">
+                  <span></span>
+              </label>
+              <div class="text-tugas">
+                  <div style="height: 28px; width: 1px; background-color: #262530; margin-left: 14px;"></div>
+                  <label for="check-tugas">Masukkan nama tugas</label>
+              </div>
+          </div>
+          <div class="deskripsi-tugas">
+              <img src="/assets/menu.png" alt="menu">
+              <span>Deskripsi Tugas (Optional)</span>
+          </div>
+          <div class="calendar">
+              <img src="/assets/Calendar.svg" alt="calendar">
+              <span>Tanggal & waktu</span>
+          </div>
+      </div>
         <div class="task-checkbox-2">
           <input type="checkbox" name="check" id="check-2" />
           <label for="check-2" class="checkbox">
