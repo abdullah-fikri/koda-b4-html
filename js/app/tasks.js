@@ -161,7 +161,6 @@ define(["jquery", "moment"], function ($, moment) {
     }
   }
 
-  // Fungsi untuk mengupdate teks tombol sort
   function updateSortButtonText(sortBy) {
     let buttonText = "By Tanggal";
     switch (sortBy) {
