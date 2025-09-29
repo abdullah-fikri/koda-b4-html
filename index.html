@@ -104,123 +104,123 @@
       <!-- content -->
       <div class="mt-3">
         <!-- box-content- -->
-        <form>
-          <div class="flex-1 w-full">
-            <!-- container-nama-tugas -->
-            <div
-              class="bg-[#F5F5F5] pt-2 pr-4 pb-4 pl-4 mt-2 w-[calc(100%+40px)] ml-[-20px] md:w-[calc(100%+80px)] md:ml-[-40px]"
-              id="createTask">
-              <!-- nama-tugas -->
-              <div class="flex items-center mb-3">
-                <input type="checkbox" name="check" id="check-tugas" />
-                <label for="check-tugas" class="checkbox">
-                  <span></span>
-                </label>
-                <!-- text-tugas -->
-                <div class="flex items-center flex-1">
-                  <input id="inputNamaTugas" placeholder="Masukkan nama tugas"
-                    class="pl-1 text-[#9E9E9E] font-medium text-lg w-[300px] border-none outline-none bg-transparent pl-3" />
-                </div>
-              </div>
-              <!-- deskripsi-tugas -->
-              <div class="flex items-center mb-3">
-                <img src="/assets/menu.png" alt="menu" />
-                <input class="text-[#9E9E9E] font-normal text-sm pl-3 w-[400px] border-none outline-none bg-transparent"
-                  placeholder="Deskripsi Tugas (Optional)" id="deskripsi" />
-              </div>
-              <!-- calendar -->
-              <div class="flex items-center">
-                <img src="/assets/Calendar.svg" alt="calendar" />
-                <input
-                  class="text-[#9E9E9E] font-normal text-sm pl-3 border-none bg-transparent border-none outline-none"
-                  placeholder="Tanggal & waktu" id="inputDate" />
+
+        <div class="flex-1 w-full">
+          <!-- container-nama-tugas -->
+          <div
+            class="bg-[#F5F5F5] pt-2 pr-4 pb-4 pl-4 mt-2 w-[calc(100%+40px)] ml-[-20px] md:w-[calc(100%+80px)] md:ml-[-40px]"
+            id="createTask">
+            <!-- nama-tugas -->
+            <div class="flex items-center mb-3">
+              <input type="checkbox" name="check" id="check-tugas" />
+              <label for="check-tugas" class="checkbox">
+                <span></span>
+              </label>
+              <!-- text-tugas -->
+              <div class="flex items-center flex-1">
+                <input id="inputNamaTugas" placeholder="Masukkan nama tugas"
+                  class="pl-1 text-[#9E9E9E] font-medium text-lg w-[300px] border-none outline-none bg-transparent pl-3"
+                  enterkeyhint="go" />
               </div>
             </div>
-        </form>
-      </div>
-      <!-- task-checkbox -->
-      <div class="relative mt-4" id="taskCheckbox">
+            <!-- deskripsi-tugas -->
+            <div class="flex items-center mb-3">
+              <img src="/assets/menu.png" alt="menu" />
+              <input class="text-[#9E9E9E] font-normal text-sm pl-3 w-[400px] border-none outline-none bg-transparent"
+                placeholder="Deskripsi Tugas (Optional)" id="deskripsi" enterkeyhint="go" />
+            </div>
+            <!-- calendar -->
+            <div class="flex items-center">
+              <img src="/assets/Calendar.svg" alt="calendar" />
+              <input class="text-[#9E9E9E] font-normal text-sm pl-3 border-none bg-transparent border-none outline-none"
+                placeholder="Tanggal & waktu" id="inputDate" enterkeyhint="go" />
+            </div>
+          </div>
 
-
-      </div>
-      <!-- container-subtask -->
-      <div class="mx-w-[800px] h-[224px] mt-4 bg-[#F5F5F5] rounded-lg" id="containerSubtask">
-        <!-- subtask -->
-        <div class="flex justify-between p-[10px]">
-          <span class="text-base font-medium text-[#293038] flex items-center">SUBTASK</span>
-          <button class="rounded-[50px] border px-[10px] py-[6px] flex gap-2.5 items-center bg-white">
-            <img src="/assets/Plus-orange.png" alt="plus" />
-            <span class="text-[#FF5F26] hidden md:block ">Tambah</span>
-          </button>
         </div>
-        <!-- point-subtask -->
-        <div class="p-3">
-          <!-- product-point-subtask -->
-          <div class="flex">
-            <input type="checkbox" name="check" id="check-point-subtask" />
-            <label for="check-point-subtask" class="checkbox">
-              <span></span>
-            </label>
-            <!-- product-point-subtask-child -->
-            <div class="flex w-full items-center ml-4">
-              <label class="text-base font-normal text-[#293038] flex items-center" for="check-point-subtask">Design
-                Review</label>
-              <img class="flex ml-auto w-[22px]" src="/assets/trash.png" alt="trash" />
-            </div>
+        <!-- task-checkbox -->
+        <div class="relative mt-4" id="taskCheckbox">
+
+
+        </div>
+        <!-- container-subtask -->
+        <div class="mx-w-[800px] h-[224px] mt-4 bg-[#F5F5F5] rounded-lg" id="containerSubtask">
+          <!-- subtask -->
+          <div class="flex justify-between p-[10px]">
+            <span class="text-base font-medium text-[#293038] flex items-center">SUBTASK</span>
+            <button class="rounded-[50px] border px-[10px] py-[6px] flex gap-2.5 items-center bg-white">
+              <img src="/assets/Plus-orange.png" alt="plus" />
+              <span class="text-[#FF5F26] hidden md:block ">Tambah</span>
+            </button>
           </div>
-          <!-- product-point-subtask-2 -->
-          <div class="flex mt-[10px]">
-            <input type="checkbox" name="check" id="check-point-subtask-2" />
-            <label for="check-point-subtask-2" class="checkbox">
-              <span></span>
-            </label>
-            <!-- product-point-subtask-child -->
-            <div class="flex ml-4 items-center w-full">
-              <label class="text-base font-normal text-[#293038]" for="check-point-subtask-2">Low-Fidelity
-                design</label>
-              <img class="ml-auto flex w-[22px]" src="/assets/trash.png" alt="trash" />
+          <!-- point-subtask -->
+          <div class="p-3">
+            <!-- product-point-subtask -->
+            <div class="flex">
+              <input type="checkbox" name="check" id="check-point-subtask" />
+              <label for="check-point-subtask" class="checkbox">
+                <span></span>
+              </label>
+              <!-- product-point-subtask-child -->
+              <div class="flex w-full items-center ml-4">
+                <label class="text-base font-normal text-[#293038] flex items-center" for="check-point-subtask">Design
+                  Review</label>
+                <img class="flex ml-auto w-[22px]" src="/assets/trash.png" alt="trash" />
+              </div>
             </div>
-          </div>
-          <!-- product-point-subtask-3 -->
-          <div class="flex mt-[10px]">
-            <input type="checkbox" name="check" id="check-point-subtask-3" />
-            <label for="check-point-subtask-3" class="checkbox">
-              <span></span>
-            </label>
-            <!-- product-point-subtask-child-3 -->
-            <div class="flex ml-4 items-center w-full">
-              <label class="text-base font-normal text-[#293038] flex items-center"
-                for="check-point-subtask-3">High-Fidelity design</label>
-              <img class="ml-auto flex w-[22px]" src="/assets/trash.png" alt="trash" />
+            <!-- product-point-subtask-2 -->
+            <div class="flex mt-[10px]">
+              <input type="checkbox" name="check" id="check-point-subtask-2" />
+              <label for="check-point-subtask-2" class="checkbox">
+                <span></span>
+              </label>
+              <!-- product-point-subtask-child -->
+              <div class="flex ml-4 items-center w-full">
+                <label class="text-base font-normal text-[#293038]" for="check-point-subtask-2">Low-Fidelity
+                  design</label>
+                <img class="ml-auto flex w-[22px]" src="/assets/trash.png" alt="trash" />
+              </div>
             </div>
-          </div>
-          <!-- product-point-subtask-4 -->
-          <div class="flex mt-[10px]">
-            <input type="checkbox" name="check" id="check-point-subtask-4" />
-            <label for="check-point-subtask-4" class="checkbox">
-              <span></span>
-            </label>
-            <!-- product-point-subtask-child-4 -->
-            <div class="flex ml-4 items-center w-full">
-              <label class="text-base font-normal text-[#293038] flex items-center" for="check-point-subtask-4">Design
-                Guidelines</label>
-              <img class="ml-auto w-[22px] flex" src="/assets/trash.png" alt="trash" />
+            <!-- product-point-subtask-3 -->
+            <div class="flex mt-[10px]">
+              <input type="checkbox" name="check" id="check-point-subtask-3" />
+              <label for="check-point-subtask-3" class="checkbox">
+                <span></span>
+              </label>
+              <!-- product-point-subtask-child-3 -->
+              <div class="flex ml-4 items-center w-full">
+                <label class="text-base font-normal text-[#293038] flex items-center"
+                  for="check-point-subtask-3">High-Fidelity design</label>
+                <img class="ml-auto flex w-[22px]" src="/assets/trash.png" alt="trash" />
+              </div>
+            </div>
+            <!-- product-point-subtask-4 -->
+            <div class="flex mt-[10px]">
+              <input type="checkbox" name="check" id="check-point-subtask-4" />
+              <label for="check-point-subtask-4" class="checkbox">
+                <span></span>
+              </label>
+              <!-- product-point-subtask-child-4 -->
+              <div class="flex ml-4 items-center w-full">
+                <label class="text-base font-normal text-[#293038] flex items-center" for="check-point-subtask-4">Design
+                  Guidelines</label>
+                <img class="ml-auto w-[22px] flex" src="/assets/trash.png" alt="trash" />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- footer -->
-    <div class="mt-auto">
-      <!-- line -->
-      <div class="w-full h-px bg-[#CCCED2]"></div>
-      <div class="flex items-center mt-4">
-        <img id="arrowTerselesaikan" src="/assets/Arrow - Right 2.png" alt="" /><span>Terselesaikan</span>
-      </div>
-      <!-- terselesaikan-content -->
-      <div id="contentTerselesaikan" class="mt-6">
-        <!-- <div class="flex items-center gap-2.5">
+      <!-- footer -->
+      <div class="mt-auto">
+        <!-- line -->
+        <div class="w-full h-px bg-[#CCCED2]"></div>
+        <div class="flex items-center mt-4">
+          <img id="arrowTerselesaikan" src="/assets/Arrow - Right 2.png" alt="" /><span>Terselesaikan</span>
+        </div>
+        <!-- terselesaikan-content -->
+        <div id="contentTerselesaikan" class="mt-6">
+          <!-- <div class="flex items-center gap-2.5">
             <img src="/assets/ceklist.png" alt="ceklist" />
             <span class="text-lg text-[#293038] font-medium">Requirements Detail</span>
             <img class="ml-auto" src="/assets/Arrow - Down 2.svg" alt="arrow-down" />
@@ -235,8 +235,8 @@
             <span class="text-lg text-[#293038] font-medium">Meating With Teams</span>
             <img class="ml-auto" src="/assets/Arrow - Down 2.svg" alt="arrow-down" />
           </div> -->
+        </div>
       </div>
-    </div>
     </div>
     </div>
   </main>
