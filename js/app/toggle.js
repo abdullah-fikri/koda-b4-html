@@ -1,32 +1,27 @@
 define(["jquery"], function ($) {
   function init() {
-    $("#createTask").hide();
-    $("#sortByTanggal").hide();
-    $("#arrowWebsite").show();
-    $("#arrowDevelopment").show();
-    $("#arrowProduckDesign").show();
-    $("#contentTerselesaikan").hide();
-    $("#containerSubtask").hide();
-    $("#option").hide();
-    $("#optionText").hide();
-    $("#popUp").hide();
-
+    // Toggle form tambah tugas
     $("#btnTambahTugas").click(function () {
-      $("#createTask").toggle();
+      $("#formTambahTugas").slideToggle(300);
     });
 
+    // Toggle sort menu
     $("#btnByTanggal").click(function () {
-      $("#sortByTanggal").toggle();
+      $("#sortByTanggal").slideToggle(200);
     });
 
-    $("#arrowTerselesaikan").click(function () {
-      const $img = $(this);
+    // Toggle section terselesaikan
+    $("#btnTerselesaikan").click(function () {
+      const $img = $("#arrowTerselesaikan");
+
+      // Toggle arrow image
       if ($img.attr("src") === "/assets/Arrow - Right 2.png") {
-        $img.attr("src", "/assets/arrowUp.png").addClass("w-6 h-6");
+        $img.attr("src", "/assets/arrowUp.png");
       } else {
         $img.attr("src", "/assets/Arrow - Right 2.png");
       }
-      $("#contentTerselesaikan").slideToggle();
+
+      $("#contentTerselesaikan").slideToggle(300);
     });
 
     $(document).on("click", "[id^='arrow-']", function (e) {
@@ -43,7 +38,16 @@ define(["jquery"], function ($) {
         $img.attr("src", "/assets/Arrow - Down 2.svg");
       }
 
-      $subtask.slideToggle();
+      $subtask.slideToggle(300);
+    });
+
+    $(document).click(function (e) {
+      if (
+        !$(e.target).closest("#btnByTanggal").length &&
+        !$(e.target).closest("#sortByTanggal").length
+      ) {
+        $("#sortByTanggal").hide();
+      }
     });
   }
 

@@ -20,25 +20,25 @@ define(["jquery", "app/tasks"], function ($, tasksModule) {
       return;
     }
 
-    completedTasks.forEach((task) => {
+    completedTasks.forEach((task, index) => {
       let el = $(`
-          <div class="flex items-center gap-2.5 mt-2 rounded px-3 py-2">
-            <img src="/assets/ceklist.png" alt="ceklist" class="w-5 h-5" />
-            <span class="text-lg text-[#293038] font-medium line-through">${
-              task.namaTugas
-            }</span>
-            <span class="text-sm text-gray-400">${task.tanggal || ""}</span>
-            <img class="ml-auto" src="/assets/Arrow - Down 2.svg" alt="arrow-down" />
-          </div>
-        `);
+        <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+          <input type="checkbox" id="completed-${index}" class="peer hidden" checked />
+          <label for="completed-${index}" class="checkbox">
+            <span></span>
+          </label>
+          <span class="text-base md:text-lg text-[#293038] font-medium line-through opacity-70">${task.namaTugas}</span>
+          <img class="ml-auto w-6 h-6" src="/assets/Arrow - Down 2.svg" alt="Icon panah" />
+        </div>
+      `);
       $("#contentTerselesaikan").append(el);
     });
   }
 
   function init() {
-    $("input[id^='check-point-subtask']").change(function () {
-      $(`label[for='${this.id}']`).toggleClass(
-        "line-through text-[#293038]",
+    $(document).on("change", "[id^='check-point-subtask']", function () {
+      $(`label[for='${this.id}']:not(.checkbox)`).toggleClass(
+        "line-through opacity-60",
         this.checked
       );
     });
@@ -56,21 +56,38 @@ define(["jquery", "app/tasks"], function ($, tasksModule) {
     loadCompleted();
     renderCompleted();
 
-    $(document).on("click", ".menu-delete", function () {
-      let indexTask = $(".popup-dinamis").attr("data-index");
-      let dataTasks = tasksModule.getTasks();
+    $(document).on("change", ".task-main-checkbox", function () {
+      if (this.checked) {
+        let indexTask = $(this).data("index");
+        let dataTasks = tasksModule.getTasks();
 
-      if (indexTask !== undefined && dataTasks[indexTask]) {
-        if (confirm("Yakin ingin menyelesaikan tugas ini?")) {
-          completedTasks.push(dataTasks[indexTask]);
-          saveCompleted();
+        if (indexTask !== undefined && dataTasks[indexTask]) {
+          if (confirm("Pindahkan tugas ke Terselesaikan?")) {
+            completedTasks.push(dataTasks[indexTask]);
+            saveCompleted();
 
-          dataTasks.splice(indexTask, 1);
-          localStorage.setItem("user", JSON.stringify(dataTasks));
+            dataTasks.splice(indexTask, 1);
+            localStorage.setItem("user", JSON.stringify(dataTasks));
 
-          tasksModule.init();
-          renderCompleted();
+            tasksModule.init();
+            renderCompleted();
+          } else {
+            $(this).prop("checked", false);
+          }
         }
+      }
+    });
+
+    $("#arrowTerselesaikan").on("click", function () {
+      let $arrow = $(this);
+      let $content = $("#contentTerselesaikan");
+
+      $content.slideToggle(200);
+
+      if ($arrow.attr("src") === "/assets/Arrow - Right 2.png") {
+        $arrow.attr("src", "/assets/Arrow - Down 2.svg");
+      } else {
+        $arrow.attr("src", "/assets/Arrow - Right 2.png");
       }
     });
   }

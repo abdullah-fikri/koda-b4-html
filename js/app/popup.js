@@ -13,20 +13,20 @@ define(["jquery", "app/tasks"], function ($, tasksModule) {
     let posisiTombol = tombolOption.offset();
 
     let htmlPopup = `
-            <div class="popup-dinamis fixed bg-white border border-[#CCCED2] rounded-lg p-5 shadow-lg z-50" 
-                 style="top: ${posisiTombol.top + 30}px; left: ${
+      <div class="popup-dinamis fixed bg-white border border-[#CCCED2] rounded-lg p-5 shadow-lg z-50" 
+           style="top: ${posisiTombol.top + 30}px; left: ${
       posisiTombol.left - 100
     }px;">
-                <div class="menu-rename flex items-center cursor-pointer hover:bg-gray-50 p-2 rounded">
-                    <img src="/assets/Edit.png" alt="edit" class="w-4 h-4">
-                    <span class="ml-3 font-normal text-base text-[#293038]">Rename task</span>
-                </div>
-                <div class="menu-delete flex items-center cursor-pointer hover:bg-gray-50 p-2 rounded mt-3">
-                    <img src="/assets/Delete.png" alt="delete" class="w-4 h-4">
-                    <span class="ml-3 font-normal text-base text-[#293038]">Delete task</span>
-                </div>
-            </div>
-        `;
+        <div class="menu-rename flex items-center cursor-pointer hover:bg-gray-50 p-2 rounded transition-colors">
+          <img src="/assets/Edit.png" alt="Icon edit" class="w-4 h-4">
+          <span class="ml-3 font-normal text-base text-[#293038]">Rename task</span>
+        </div>
+        <div class="menu-delete flex items-center cursor-pointer hover:bg-gray-50 p-2 rounded mt-3 transition-colors">
+        <img src="/assets/Delete.png" alt="Icon delete" class="w-4 h-4">
+        <span class="ml-3 font-normal text-base text-[#293038]">Delete task</span>
+      </div>
+    </div>
+  `;
 
     $("body").append(htmlPopup);
     popupTerbuka = $(".popup-dinamis");
@@ -34,9 +34,9 @@ define(["jquery", "app/tasks"], function ($, tasksModule) {
   }
 
   function init() {
-    $("#taskCheckbox").on("click", "[id^='option-']", function (e) {
+    $("#taskCheckbox").on("click", ".option-btn", function (e) {
       e.stopPropagation();
-      let indexTask = this.id.split("-")[1];
+      let indexTask = $(this).data("index");
       buatPopup($(this), indexTask);
     });
 
@@ -44,7 +44,7 @@ define(["jquery", "app/tasks"], function ($, tasksModule) {
       if (
         popupTerbuka &&
         !$(e.target).closest(".popup-dinamis").length &&
-        !$(e.target).closest('[id^="option-"]').length
+        !$(e.target).closest(".option-btn").length
       ) {
         tutupPopup();
       }

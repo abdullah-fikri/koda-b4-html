@@ -18,11 +18,9 @@ define(["jquery", "moment"], function ($, moment) {
         sortedTasks.sort((a, b) => {
           let dateA = moment(a.tanggal, "DD/MM/YYYY");
           let dateB = moment(b.tanggal, "DD/MM/YYYY");
-
           if (!dateA.isValid() && !dateB.isValid()) return 0;
           if (!dateA.isValid()) return 1;
           if (!dateB.isValid()) return -1;
-
           return dateA.diff(dateB);
         });
         break;
@@ -31,11 +29,9 @@ define(["jquery", "moment"], function ($, moment) {
         sortedTasks.sort((a, b) => {
           let dateA = moment(a.tanggal, "DD/MM/YYYY");
           let dateB = moment(b.tanggal, "DD/MM/YYYY");
-
           if (!dateA.isValid() && !dateB.isValid()) return 0;
           if (!dateA.isValid()) return 1;
           if (!dateB.isValid()) return -1;
-
           return dateB.diff(dateA);
         });
         break;
@@ -49,13 +45,85 @@ define(["jquery", "moment"], function ($, moment) {
     return sortedTasks;
   }
 
+  function createTaskHTML(element, originalIndex) {
+    return `
+      <div class="bg-white rounded-lg p-3 md:p-4">
+        <div class="grid grid-cols-[auto_1fr_auto] gap-2.5 md:gap-3 items-start">
+          <input type="checkbox" id="check-${originalIndex}" class="task-main-checkbox peer hidden" data-index="${originalIndex}" />
+          <label for="check-${originalIndex}" class="checkbox">
+            <span></span>
+          </label>
+          
+          <div class="flex flex-col gap-2 min-w-0">
+            <div class="flex flex-col md:flex-row md:items-center gap-2">
+              <label for="check-${originalIndex}" class="text-base md:text-lg font-medium text-[#293028] cursor-pointer">
+                ${element.namaTugas}
+              </label>
+              <div class="flex items-center gap-2 ">
+                <span class="inline-flex px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-medium text-[#FF5F26] bg-[#FFEBD3] rounded-full">
+                  ${element.tanggal}
+                </span>
+                <button class="option-btn hover:opacity-70 transition-opacity" data-index="${originalIndex}" aria-label="Opsi tugas">
+                  <img src="/assets/option.png" alt="Icon opsi" class="w-6 h-6" />
+                </button>
+              </div>
+            </div>
+            ${
+              element.deskripsi
+                ? `<p class="text-sm md:text-base text-[#7A7F83]">${element.deskripsi}</p>`
+                : ""
+            }
+            
+            <!-- Subtask Container -->
+            <div class="bg-[#F5F5F5] rounded-lg p-3 mt-2 hidden" id="subtask-${originalIndex}">
+              <div class="flex justify-between items-center mb-3">
+                <span class="font-medium text-sm md:text-base text-[#293038]">SUBTASK</span>
+                <button class="flex items-center gap-2 px-2.5 py-1.5 text-xs bg-white border border-gray-200 rounded-full hover:bg-gray-50 transition-colors btn-add-subtask" data-index="${originalIndex}">
+                  <img src="/assets/Plus-orange.png" alt="" class="w-4 h-4" />
+                  <span class="text-[#FF5F26] hidden md:inline">Tambah</span>
+                </button>
+              </div>
+              <div class="space-y-2" id="subtask-list-${originalIndex}">
+                ${(element.subtasks || [])
+                  .map(
+                    (st, i) => `
+                  <div class="flex items-center gap-2">
+                    <input type="checkbox" ${st.selesai ? "checked" : ""} 
+                           id="subtask-${originalIndex}-${i}" 
+                           class="subtask-checkbox peer hidden" 
+                           data-task="${originalIndex}" 
+                           data-sub="${i}" />
+                    <label for="subtask-${originalIndex}-${i}" class="checkbox">
+                      <span></span>
+                    </label>
+                    <label for="subtask-${originalIndex}-${i}" class="cursor-pointer text-sm md:text-base ${
+                      st.selesai ? "line-through opacity-60" : ""
+                    }">
+                      ${st.nama}
+                    </label>
+                  </div>
+                `
+                  )
+                  .join("")}
+              </div>
+            </div>
+          </div>
+          
+          <button class="arrow-toggle hover:opacity-70 transition-opacity" data-index="${originalIndex}" aria-label="Toggle subtask">
+            <img src="/assets/Arrow - Down 2.svg" alt="Icon panah" class="w-6 h-6 arrow-img" />
+          </button>
+        </div>
+      </div>
+    `;
+  }
+
   function createTasks() {
     loadTasks();
     $("#taskCheckbox").empty();
 
     let sortedTasks = sortTasks(currentSortBy);
 
-    sortedTasks.forEach((element, index) => {
+    sortedTasks.forEach((element) => {
       let originalIndex = tasks.findIndex(
         (task) =>
           task.namaTugas === element.namaTugas &&
@@ -63,63 +131,7 @@ define(["jquery", "moment"], function ($, moment) {
           task.deskripsi === element.deskripsi
       );
 
-      let dataUser = $(`
-        <div class="flex mt-4 items-center gap-[10px]">
-          <input type="checkbox" name="check" id="check-${originalIndex}" />
-          <label for="check-${originalIndex}" class="checkbox"><span></span></label>
-          <div class="task-checkbox-container-product-${originalIndex}">
-            <div class="flex flex-col md:flex-row">
-              <label for="check-${originalIndex}" class="text-[#293028] font-medium text-lg cursor-pointer">
-                ${element.namaTugas}
-              </label>
-              <div class="flex items-center ml-auto">
-                <span class="inline-flex md:ml-4 ml-0 px-3 py-2 text-xs font-medium text-[#FF5F26] bg-[#FFEBD3] rounded-[30px]">
-                  ${element.tanggal}
-                </span>
-                <img class="h-6 w-6 ml-2 cursor-pointer hover:opacity-80" src="/assets/option.png" alt="option" id="option-${originalIndex}">
-                <p class="rounded-sm text-[#7A7F83] hidden" id="optionText-${originalIndex}">option</p>
-              </div>
-            </div>
-            ${
-              element.deskripsi
-                ? `<div class="text-sm font-normal text-[#7A7F83] mt-2">${element.deskripsi}</div>`
-                : ""
-            }
-          </div>
-          <img src="/assets/Arrow - Down 2.svg" alt="arrow" class="ml-auto w-6 h-6 cursor-pointer" id="arrow-${originalIndex}" />
-        </div>
-
-        <!-- Subtask container (hidden by default) -->
-        <div class="subtask-container bg-[#F5F5F5] rounded-lg mt-2 hidden p-3" id="subtask-${originalIndex}">
-          <div class="flex justify-between items-center mb-2">
-            <span class="font-medium text-base text-[#293038]">SUBTASK</span>
-            <button 
-              class="btn-tambah-subtask rounded-[50px] border px-[10px] py-[6px] flex gap-2.5 items-center bg-white"
-              data-task="${originalIndex}">
-              <img src="/assets/Plus-orange.png" />
-              <span class="text-[#FF5F26] hidden md:block">Tambah</span>
-            </button>
-          </div>
-          <div class="subtask-list space-y-2" id="subtask-list-${originalIndex}">
-            ${(element.subtasks || [])
-              .map(
-                (st, i) => `
-                  <div class="flex items-center">
-                    <input type="checkbox" ${st.selesai ? "checked" : ""} 
-                           id="check-point-subtask-${originalIndex}-${i}"
-                           class="subtask-checkbox">
-                    <span class="ml-2 ${
-                      st.selesai ? "line-through text-gray-400" : ""
-                    }">
-                      ${st.nama}
-                    </span>
-                  </div>
-                `
-              )
-              .join("")}
-          </div>
-        </div>
-      `);
+      let dataUser = $(createTaskHTML(element, originalIndex));
       $("#taskCheckbox").append(dataUser);
     });
   }
@@ -151,6 +163,7 @@ define(["jquery", "moment"], function ($, moment) {
 
     saveTasks();
     createTasks();
+    return true;
   }
 
   function updateSubtaskStatus(taskIndex, subIndex, completed) {
@@ -162,7 +175,7 @@ define(["jquery", "moment"], function ($, moment) {
   }
 
   function updateSortButtonText(sortBy) {
-    let buttonText = "By Tanggal";
+    let buttonText = "Terbaru";
     switch (sortBy) {
       case "tanggal":
         buttonText = "By Tanggal";
@@ -174,7 +187,39 @@ define(["jquery", "moment"], function ($, moment) {
         buttonText = "Terbaru";
         break;
     }
-    $("#btnByTanggal span").text(buttonText);
+    $("#btnByTanggal span").first().text(buttonText);
+  }
+
+  function handleFormSubmit() {
+    if (!$("#check-tugas").is(":checked")) {
+      alert("Centang checkbox dulu sebelum menambahkan tugas!");
+      return;
+    }
+
+    let inputNamaTugas = $("#inputNamaTugas").val().trim();
+    let inputDeskripsiTugas = $("#deskripsi").val().trim();
+    let inputDate = $("#inputDate").val().trim();
+
+    if (!inputNamaTugas) {
+      alert("Nama tugas harus diisi!");
+      return;
+    }
+
+    let date = moment(inputDate, "DD-MM-YYYY");
+    if (!date.isValid()) {
+      alert("Masukkan data dengan format yang benar (DD-MM-YYYY)");
+      return;
+    }
+    let format = date.format("DD/MM/YYYY");
+
+    addTask(inputNamaTugas, inputDeskripsiTugas, format);
+
+    // Reset form
+    $("#inputNamaTugas").val("");
+    $("#deskripsi").val("");
+    $("#inputDate").val("");
+    $("#check-tugas").prop("checked", false);
+    $("#formTambahTugas").hide();
   }
 
   return {
@@ -194,66 +239,52 @@ define(["jquery", "moment"], function ($, moment) {
       );
       updateSortButtonText(currentSortBy);
 
-      $("#inputNamaTugas").on("keypress", function (e) {
+      $("#formTambahTugas").on("submit", function (e) {
+        e.preventDefault();
+        handleFormSubmit();
+      });
+
+      $("#inputNamaTugas, #inputDate").on("keypress", function (e) {
         if (e.key === "Enter") {
           e.preventDefault();
-          if (!$("#check-tugas").is(":checked")) {
-            alert("Centang checkbox dulu sebelum menambahkan tugas!");
-            return;
-          }
-
-          let inputNamaTugas = $("#inputNamaTugas").val().trim();
-          let inputDeskripsiTugas = $("#deskripsi").val().trim();
-          let inputDate = $("#inputDate").val().trim();
-
-          if (!inputNamaTugas) {
-            alert("Nama tugas tidak boleh kosong!");
-            return;
-          }
-
-          let date = moment(inputDate, "DD-MM-YYYY");
-          if (!date.isValid()) {
-            alert("Masukkan data dengan format yang benar (22-12-2024)");
-            return;
-          }
-          let format = date.format("DD/MM/YYYY");
-
-          addTask(inputNamaTugas, inputDeskripsiTugas, format);
-
-          $("#inputNamaTugas").val("");
-          $("#deskripsi").val("");
-          $("#inputDate").val("");
-          $("#check-tugas").prop("checked", false);
+          handleFormSubmit();
         }
       });
 
-      $(document).on("click", ".btn-tambah-subtask", function (e) {
+      $(document).on("click", ".btn-add-subtask", function (e) {
         e.preventDefault();
         e.stopPropagation();
 
-        let index = parseInt($(this).data("task"));
-
-        if (isNaN(index)) {
-          return;
-        }
+        let index = parseInt($(this).data("index"));
+        if (isNaN(index)) return;
 
         let namaSubtask = prompt("Masukkan nama subtask:");
-
         if (namaSubtask && namaSubtask.trim() !== "") {
-          let success = addSubtask(index, namaSubtask.trim());
+          addSubtask(index, namaSubtask.trim());
         }
       });
 
       $(document).on("change", ".subtask-checkbox", function () {
-        let id = this.id;
-        let ids = id.split("-");
+        let taskIndex = $(this).data("task");
+        let subIndex = $(this).data("sub");
+        updateSubtaskStatus(taskIndex, subIndex, this.checked);
+      });
 
-        if (ids.length >= 5) {
-          let taskIndex = parseInt(ids[3]);
-          let subIndex = parseInt(ids[4]);
+      $(document).on("click", ".arrow-toggle", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
 
-          updateSubtaskStatus(taskIndex, subIndex, this.checked);
+        let index = $(this).data("index");
+        let $img = $(this).find(".arrow-img");
+        let $subtask = $(`#subtask-${index}`);
+
+        if ($img.attr("src") === "/assets/Arrow - Down 2.svg") {
+          $img.attr("src", "/assets/arrowUp.png");
+        } else {
+          $img.attr("src", "/assets/Arrow - Down 2.svg");
         }
+
+        $subtask.slideToggle();
       });
     },
     getTasks: () => tasks,
