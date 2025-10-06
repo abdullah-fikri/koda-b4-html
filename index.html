@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wazwez</title>
+  <title>Wazwez - To Do List</title>
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rancho&display=swap" />
   <script src="https://cdn.tailwindcss.com"></script>
@@ -22,148 +22,146 @@
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
   <link rel="stylesheet" href="/css/style.css">
-
 </head>
 
 <body class="font-poppins bg-white">
-  <nav class="flex justify-between w-full max-w-7xl h-12 py-10 px-3 mx-auto items-center">
-    <img class="h-[40px] md:h-[50px]" src="/assets/Logo.svg" alt="logo" />
-    <ul class="flex items-center gap-2.5">
-      <li class="notif">
-        <a class="flex items-center" href=""><img src="/assets/Notification.png" alt="notification" /></a>
-      </li>
-      <li class="profile">
-        <a class="flex items-center" href=""><img src="/assets/Group 30.png" alt="profile" /></a>
-      </li>
-      <li class="hidden md:block">
-        <a class="flex items-center" href=""><img src="/assets/Krozeo Jupiter.png" alt="users" /></a>
-      </li>
-      <li>
-        <a class="flex items-center" href=""><img src="/assets/down.png" alt="menu" /></a>
-      </li>
-    </ul>
-  </nav>
+  <header>
+    <nav class="flex justify-between w-full max-w-7xl h-12 py-10 px-3 mx-auto items-center">
+      <img class="h-[40px] md:h-[50px]" src="/assets/Logo.svg" alt="Wazwez Logo" />
+      <ul class="flex items-center gap-2.5">
+        <li class="notif">
+          <a class="flex items-center" href="#" aria-label="Notifikasi">
+            <img src="/assets/Notification.png" alt="Notifikasi" />
+          </a>
+        </li>
+        <li class="profile">
+          <a class="flex items-center" href="#" aria-label="Profil">
+            <img src="/assets/Group 30.png" alt="Profil" />
+          </a>
+        </li>
+        <li class="hidden md:block">
+          <a class="flex items-center" href="#" aria-label="Pengguna">
+            <img src="/assets/Krozeo Jupiter.png" alt="Pengguna" />
+          </a>
+        </li>
+        <li>
+          <a class="flex items-center" href="#" aria-label="Menu">
+            <img src="/assets/down.png" alt="Menu" />
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
   <main>
-    <!-- container -->
-    <div
+    <section
       class="max-w-[800px] min-h-[672px] my-4 mx-auto bg-white md:shadow-[0_16px_90px_0px_#13073414] p-[20px] md:p-[40px] flex flex-col">
-      <!-- todo -->
-      <div class="flex flex-col md:flex-row md:justify-between md:items-start">
+
+      <!-- Header Section -->
+      <header class="flex flex-col md:flex-row md:justify-between md:items-start">
         <div class="flex flex-col gap-2 md:gap-5">
           <span class="font-medium text-[#FF5F26] tracking-[1px] text-base">MY TASKS</span>
-          <span class="font-medium text-black text-2xl">To Do List</span>
-          <span class="font-normal text-base text-[#7A7F83]">Buat Tugas List Tugas Harian Saya</span>
+          <h1 class="font-medium text-black text-2xl">To Do List</h1>
+          <p class="font-normal text-base text-[#7A7F83]">Buat Tugas List Tugas Harian Saya</p>
         </div>
-        <!-- btn-tambah-tugas -->
+
         <div class="mt-[20px] md:mt-[70px]">
           <button class="flex bg-[#FF5F26] text-white rounded-[60px] items-center border-none gap-[8px] mx-w-[100%] p-3"
-            id="btnTambahTugas">
-            <img src="/assets/Plus.svg" alt="plus" />
+            id="btnTambahTugas" type="button" aria-label="Tambah tugas baru">
+            <img src="/assets/Plus.svg" alt="" />
             <span>Tambah Tugas</span>
           </button>
         </div>
-      </div>
-      <!-- container-2 /box-content-->
+      </header>
+
+      <!-- Sort Section -->
       <div class="flex mt-7 justify-between items-center md:mt-10">
-        <!-- first child -->
-        <div class="text-base font-medium text-[#7A7F83]">
-          <span>Sort By</span>
-        </div>
+        <p class="text-base font-medium text-[#7A7F83]">Sort By</p>
         <div class="relative">
-          <!-- btn -->
           <button class="rounded-[50px] border border-[#FF5F26] py-2 px-4 flex w-full items-center gap-2"
-            id="btnByTanggal">
+            id="btnByTanggal" type="button" aria-label="Sort berdasarkan tanggal" aria-expanded="false">
             <span class="font-semibold text-sm text-[#FF5F26]">By Tanggal</span>
-            <img class="w-[24px]" src="/assets/arrow-down-love.png" alt="arrow" />
+            <img class="w-[24px]" src="/assets/arrow-down-love.png" alt="" />
           </button>
 
-          <!-- box-content-2 (sort)-->
           <div
             class="absolute right-0 top-full mt-2 w-[150px] md:w-[300px] border rounded-lg border-[#CCCED2] z-10 bg-white"
-            id="sortByTanggal">
-            <!-- box-content2-child -->
+            id="sortByTanggal" role="menu" aria-labelledby="btnByTanggal">
             <div class="p-6">
-              <!-- date -->
               <div class="flex">
-                <span>By Tanggal</span>
-                <input type="radio" class="ml-auto [accent-color:#FF5F26]" name="sortOption" value="tanggal" />
+                <label for="sortTanggal">By Tanggal</label>
+                <input type="radio" id="sortTanggal" class="ml-auto [accent-color:#FF5F26]" name="sortOption"
+                  value="tanggal" />
               </div>
-              <!-- time -->
               <div class="flex mt-3">
-                <span>By Time</span>
-                <input type="radio" class="ml-auto [accent-color:#FF5F26]" name="sortOption" value="time" />
+                <label for="sortTime">By Time</label>
+                <input type="radio" id="sortTime" class="ml-auto [accent-color:#FF5F26]" name="sortOption"
+                  value="time" />
               </div>
-              <!-- terbaru -->
               <div class="flex mt-3">
-                <span>Terbaru</span>
-                <input type="radio" class="ml-auto [accent-color:#FF5F26]" name="sortOption" value="terbaru" />
+                <label for="sortTerbaru">Terbaru</label>
+                <input type="radio" id="sortTerbaru" class="ml-auto [accent-color:#FF5F26]" name="sortOption"
+                  value="terbaru" />
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- content -->
-      <div class="mt-3">
-        <!-- box-content- -->
 
+      <!-- Form Add Task -->
+      <article class="mt-3">
         <div class="flex-1 w-full">
-          <!-- container-nama-tugas -->
           <form id="formTambahTugas"
             class="bg-[#F5F5F5] pt-2 pr-4 pb-4 pl-4 mt-2 w-[calc(100%+40px)] ml-[-20px] md:w-[calc(100%+80px)] md:ml-[-40px]"
-            style="display: none;">
-            <!-- nama-tugas -->
+            style="display: none;" aria-label="Form tambah tugas">
+
             <div class="flex items-center mb-3">
-              <input type="checkbox" name="check" id="check-tugas" />
+              <input type="checkbox" name="check" id="check-tugas" aria-label="Centang untuk menambahkan tugas" />
               <label for="check-tugas" class="checkbox">
                 <span></span>
               </label>
-              <!-- text-tugas -->
               <div class="flex items-center flex-1">
                 <input id="inputNamaTugas" placeholder="Masukkan nama tugas"
                   class="pl-1 text-[#9E9E9E] font-medium text-lg w-[300px] border-none outline-none bg-transparent pl-3"
-                  enterkeyhint="go" />
+                  enterkeyhint="go" aria-label="Nama tugas" />
               </div>
             </div>
-            <!-- deskripsi-tugas -->
+
             <div class="flex items-center mb-3">
-              <img src="/assets/menu.png" alt="menu" />
+              <img src="/assets/menu.png" alt="" />
               <input class="text-[#9E9E9E] font-normal text-sm pl-3 w-[400px] border-none outline-none bg-transparent"
-                placeholder="Deskripsi Tugas (Optional)" id="deskripsi" enterkeyhint="go" />
+                placeholder="Deskripsi Tugas (Optional)" id="deskripsi" enterkeyhint="go"
+                aria-label="Deskripsi tugas" />
             </div>
-            <!-- calendar -->
+
             <div class="flex items-center">
-              <img src="/assets/Calendar.svg" alt="calendar" />
+              <img src="/assets/Calendar.svg" alt="" />
               <input class="text-[#9E9E9E] font-normal text-sm pl-3 border-none bg-transparent border-none outline-none"
-                placeholder="Tanggal & waktu" id="inputDate" enterkeyhint="go" />
+                placeholder="Tanggal & waktu" id="inputDate" enterkeyhint="go" aria-label="Tanggal tugas" />
             </div>
           </form>
+        </div>
 
+        <!-- Task List -->
+        <div class="relative mt-4" id="taskCheckbox" role="list" aria-label="Daftar tugas">
         </div>
-        <!-- task-checkbox -->
-        <div class="relative mt-4" id="taskCheckbox">
-        </div>
-        <!-- point-subtask -->
-        <div class="p-3">
-          <!-- product-point-subtask -->
+      </article>
 
+      <!-- Footer Section -->
+      <footer class="mt-auto">
+        <hr class="w-full h-px bg-[#CCCED2] border-0" />
+        <button class="flex items-center mt-4" id="btnTerselesaikan" type="button" aria-expanded="false">
+          <img id="arrowTerselesaikan" src="/assets/Arrow - Right 2.png" alt="" />
+          <span>Terselesaikan</span>
+        </button>
+        <div id="contentTerselesaikan" class="mt-6" style="display: none;" aria-label="Daftar tugas terselesaikan">
         </div>
-      </div>
-      <!-- footer -->
-      <div class="mt-auto">
-        <!-- line -->
-        <div class="w-full h-px bg-[#CCCED2]"></div>
-        <div class="flex items-center mt-4">
-          <img id="arrowTerselesaikan" src="/assets/Arrow - Right 2.png" alt="arrow" /><span>Terselesaikan</span>
-        </div>
-        <!-- terselesaikan-content -->
-        <div id="contentTerselesaikan" class="mt-6" style="display: none;"></div>
-      </div>
-    </div>
-    </div>
-    </div>
+      </footer>
+
+    </section>
   </main>
-  <script data-main="js/main" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
 
+  <script data-main="js/main" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
 </body>
 
 </html>
