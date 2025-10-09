@@ -1,6 +1,16 @@
 define(["jquery", "app/tasks"], function ($, tasksModule) {
   let completedTasks = [];
 
+  function escapeHTML(str) {
+    if (!str) return "";
+    return str
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
   function saveCompleted() {
     localStorage.setItem("completed", JSON.stringify(completedTasks));
   }
@@ -22,14 +32,18 @@ define(["jquery", "app/tasks"], function ($, tasksModule) {
 
     completedTasks.forEach((task, index) => {
       let el = $(`
-        <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
-          <input type="checkbox" id="completed-${index}" class="peer hidden" checked />
-          <label for="completed-${index}" class="checkbox">
-            <span></span>
-          </label>
-          <span class="text-base md:text-lg text-[#293038] font-medium line-through opacity-70">${task.namaTugas}</span>
-          <img class="ml-auto w-6 h-6" src="/assets/Arrow - Down 2.svg" alt="Icon panah" />
-        </div>
+       <>
+          <div class="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 transition-colors">
+            <input type="checkbox" id="completed-${index}" class="peer hidden" checked />
+            <label for="completed-${index}" class="checkbox">
+              <span></span>
+            </label>
+            <span class="text-base md:text-lg text-[#293038] font-medium line-through opacity-70">${escapeHTML(
+              task.namaTugas
+            )}</span>
+            <img class="ml-auto w-6 h-6" src="/assets/Arrow - Down 2.svg" alt="Icon panah" />
+          </div>
+        </>
       `);
       $("#contentTerselesaikan").append(el);
     });

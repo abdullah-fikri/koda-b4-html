@@ -2,6 +2,16 @@ define(["jquery", "moment"], function ($, moment) {
   let tasks = [];
   let currentSortBy = "terbaru";
 
+  function escapeHTML(str) {
+    if (!str) return "";
+    return str
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
   function saveTasks() {
     localStorage.setItem("user", JSON.stringify(tasks));
   }
@@ -12,7 +22,6 @@ define(["jquery", "moment"], function ($, moment) {
 
   function sortTasks(sortBy) {
     let sortedTasks = [...tasks];
-
     switch (sortBy) {
       case "tanggal":
         sortedTasks.sort((a, b) => {
@@ -24,7 +33,6 @@ define(["jquery", "moment"], function ($, moment) {
           return dateA.diff(dateB);
         });
         break;
-
       case "time":
         sortedTasks.sort((a, b) => {
           let dateA = moment(a.tanggal, "DD/MM/YYYY");
@@ -35,13 +43,11 @@ define(["jquery", "moment"], function ($, moment) {
           return dateB.diff(dateA);
         });
         break;
-
       case "terbaru":
       default:
         sortedTasks.reverse();
         break;
     }
-
     return sortedTasks;
   }
 
@@ -50,31 +56,31 @@ define(["jquery", "moment"], function ($, moment) {
       <div class="bg-white rounded-lg p-3 md:p-4">
         <div class="grid grid-cols-[auto_1fr_auto] gap-2.5 md:gap-3 items-start">
           <input type="checkbox" id="check-${originalIndex}" class="task-main-checkbox peer hidden" data-index="${originalIndex}" />
-          <label for="check-${originalIndex}" class="checkbox">
-            <span></span>
-          </label>
+          <label for="check-${originalIndex}" class="checkbox"><span></span></label>
           
           <div class="flex flex-col gap-2 min-w-0">
             <div class="flex flex-col md:flex-row md:items-center gap-2">
               <label for="check-${originalIndex}" class="text-base md:text-lg font-medium text-[#293028] cursor-pointer">
-                ${element.namaTugas}
+                ${escapeHTML(element.namaTugas)}
               </label>
-              <div class="flex items-center gap-2 ">
+              <div class="flex items-center gap-2">
                 <span class="inline-flex px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-medium text-[#FF5F26] bg-[#FFEBD3] rounded-full">
-                  ${element.tanggal}
+                  ${escapeHTML(element.tanggal)}
                 </span>
                 <button class="option-btn hover:opacity-70 transition-opacity" data-index="${originalIndex}" aria-label="Opsi tugas">
                   <img src="/assets/option.png" alt="Icon opsi" class="w-6 h-6" />
                 </button>
               </div>
             </div>
+
             ${
               element.deskripsi
-                ? `<p class="text-sm md:text-base text-[#7A7F83]">${element.deskripsi}</p>`
+                ? `<p class="text-sm md:text-base text-[#7A7F83]">${escapeHTML(
+                    element.deskripsi
+                  )}</p>`
                 : ""
             }
-            
-            <!-- Subtask Container -->
+
             <div class="bg-[#F5F5F5] rounded-lg p-3 mt-2 hidden" id="subtask-${originalIndex}">
               <div class="flex justify-between items-center mb-3">
                 <span class="font-medium text-sm md:text-base text-[#293038]">SUBTASK</span>
@@ -89,20 +95,17 @@ define(["jquery", "moment"], function ($, moment) {
                     (st, i) => `
                   <div class="flex items-center gap-2">
                     <input type="checkbox" ${st.selesai ? "checked" : ""} 
-                           id="subtask-${originalIndex}-${i}" 
-                           class="subtask-checkbox peer hidden" 
-                           data-task="${originalIndex}" 
-                           data-sub="${i}" />
-                    <label for="subtask-${originalIndex}-${i}" class="checkbox">
-                      <span></span>
-                    </label>
+                          id="subtask-${originalIndex}-${i}" 
+                          class="subtask-checkbox peer hidden" 
+                          data-task="${originalIndex}" 
+                          data-sub="${i}" />
+                    <label for="subtask-${originalIndex}-${i}" class="checkbox"><span></span></label>
                     <label for="subtask-${originalIndex}-${i}" class="cursor-pointer text-sm md:text-base ${
                       st.selesai ? "line-through opacity-60" : ""
                     }">
-                      ${st.nama}
+                      ${escapeHTML(st.nama)}
                     </label>
-                  </div>
-                `
+                  </div>`
                   )
                   .join("")}
               </div>
@@ -120,9 +123,8 @@ define(["jquery", "moment"], function ($, moment) {
   function createTasks() {
     loadTasks();
     $("#taskCheckbox").empty();
-
+    const fragment = $(document.createDocumentFragment());
     let sortedTasks = sortTasks(currentSortBy);
-
     sortedTasks.forEach((element) => {
       let originalIndex = tasks.findIndex(
         (task) =>
@@ -130,10 +132,10 @@ define(["jquery", "moment"], function ($, moment) {
           task.tanggal === element.tanggal &&
           task.deskripsi === element.deskripsi
       );
-
       let dataUser = $(createTaskHTML(element, originalIndex));
-      $("#taskCheckbox").append(dataUser);
+      fragment.append(dataUser);
     });
+    $("#taskCheckbox").append(fragment);
   }
 
   function addTask(nama, deskripsi, tanggal) {
@@ -148,19 +150,9 @@ define(["jquery", "moment"], function ($, moment) {
   }
 
   function addSubtask(taskIndex, namaSubtask) {
-    if (!tasks[taskIndex]) {
-      return false;
-    }
-
-    if (!tasks[taskIndex].subtasks) {
-      tasks[taskIndex].subtasks = [];
-    }
-
-    tasks[taskIndex].subtasks.push({
-      nama: namaSubtask,
-      selesai: false,
-    });
-
+    if (!tasks[taskIndex]) return false;
+    if (!tasks[taskIndex].subtasks) tasks[taskIndex].subtasks = [];
+    tasks[taskIndex].subtasks.push({ nama: namaSubtask, selesai: false });
     saveTasks();
     createTasks();
     return true;
@@ -184,6 +176,7 @@ define(["jquery", "moment"], function ($, moment) {
         buttonText = "By Time";
         break;
       case "terbaru":
+      default:
         buttonText = "Terbaru";
         break;
     }
@@ -191,8 +184,13 @@ define(["jquery", "moment"], function ($, moment) {
   }
 
   function handleFormSubmit() {
+    $("#errorNamaTugas").text("");
+    $("#errorTanggal").text("");
+
     if (!$("#check-tugas").is(":checked")) {
-      alert("Centang checkbox dulu sebelum menambahkan tugas!");
+      $("#errorNamaTugas").text(
+        "Centang checkbox dulu sebelum menambahkan tugas!"
+      );
       return;
     }
 
@@ -201,20 +199,22 @@ define(["jquery", "moment"], function ($, moment) {
     let inputDate = $("#inputDate").val().trim();
 
     if (!inputNamaTugas) {
-      alert("Nama tugas harus diisi!");
+      $("#errorNamaTugas").text("Nama tugas harus diisi!");
       return;
     }
 
-    let date = moment(inputDate, "DD-MM-YYYY");
+    let date = moment(inputDate, "DD-MM-YYYY", true);
     if (!date.isValid()) {
-      alert("Masukkan data dengan format yang benar (DD-MM-YYYY)");
+      $("#errorTanggal").text("Masukkan tanggal dengan format DD-MM-YYYY");
       return;
     }
     let format = date.format("DD/MM/YYYY");
 
-    addTask(inputNamaTugas, inputDeskripsiTugas, format);
+    let safeNamaTugas = escapeHTML(inputNamaTugas);
+    let safeDeskripsi = escapeHTML(inputDeskripsiTugas);
 
-    // Reset form
+    addTask(safeNamaTugas, safeDeskripsi, format);
+
     $("#inputNamaTugas").val("");
     $("#deskripsi").val("");
     $("#inputDate").val("");
@@ -254,13 +254,12 @@ define(["jquery", "moment"], function ($, moment) {
       $(document).on("click", ".btn-add-subtask", function (e) {
         e.preventDefault();
         e.stopPropagation();
-
         let index = parseInt($(this).data("index"));
         if (isNaN(index)) return;
 
         let namaSubtask = prompt("Masukkan nama subtask:");
         if (namaSubtask && namaSubtask.trim() !== "") {
-          addSubtask(index, namaSubtask.trim());
+          addSubtask(index, escapeHTML(namaSubtask.trim()));
         }
       });
 
@@ -273,7 +272,6 @@ define(["jquery", "moment"], function ($, moment) {
       $(document).on("click", ".arrow-toggle", function (e) {
         e.preventDefault();
         e.stopPropagation();
-
         let index = $(this).data("index");
         let $img = $(this).find(".arrow-img");
         let $subtask = $(`#subtask-${index}`);
